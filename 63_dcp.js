@@ -17,13 +17,13 @@ Matrix:
 */
 
 function main(word) {
+  console.log(`Testing the matrix against the word ${word}...`);
   const matrix = [
     ["F", "A", "C", "I"],
     ["O", "B", "Q", "P"],
     ["A", "N", "O", "B"],
     ["M", "A", "S", "S"]
   ];
-
   // Do the vertical check
   console.log("Doing an vertical check...");
   for (let i = 0; i < matrix.length; i++) {
@@ -32,25 +32,27 @@ function main(word) {
       ""
     );
     if (verticalCheckResult === word) {
-      console.log(`${word}: True`);
+      console.log(`${word}: True\n`);
       return;
     }
     console.log(`${word}: False`);
   }
-
   // Do a horizontal check if the vertical check fails
+  console.log("Vertical check failed!");
+  console.log("Doing an horizontal check...");
   let horizontalCheckResult = "";
   for (let i = 0; i < matrix.length; i++) {
-    horizontalCheckResult = "";
-    for (let j = 0; j < matrix[i].length; j++) {
-      horizontalCheckResult += matrix[i][j];
-    }
+    horizontalCheckResult = matrix[i].reduce((acc, curr) => (acc += curr), "");
     if (horizontalCheckResult === word) {
-      console.log(`${word}: True`);
+      console.log(`${word}: True\n`);
       return;
     }
     console.log(`${word}: False`);
   }
+  // Log errors
+  console.log("Horizontal check failed!");
+  console.log(`${word} has no match within matrix!\n`);
 }
 
-main("MASS");
+const testCases = ["FOAM", "CARD", "MASS"];
+testCases.forEach(main);
